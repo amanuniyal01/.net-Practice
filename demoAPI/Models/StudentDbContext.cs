@@ -8,5 +8,6 @@ namespace demoAPI.Models
         {
 
         }
+        public DbSet<StudentMasterModel> students { get; set; }
     }
 }
