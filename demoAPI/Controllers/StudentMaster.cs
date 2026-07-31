@@ -17,16 +17,25 @@ namespace demoAPI.Controllers
 
         [HttpGet]
         [Route("GetAllStudents")]
-        public List<StudentMasterModel> GetAllStudents()
+        public IActionResult GetAllStudents()
         {
-            return _dbContext.students.ToList();
+            var studentData = _dbContext.students.ToList();
+            if (studentData == null)
+            {
+                return NotFound();
+            }
+            return Ok(studentData);
         }
         [HttpPost ("addStudentData")]
-        public StudentMasterModel AddStudent(StudentMasterModel obj)
+        public IActionResult AddStudent(StudentMasterModel obj)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             _dbContext.students.Add(obj);
             _dbContext.SaveChanges();
-            return obj;
+            return Created("Student added Successfully",obj);
         }
 
         [HttpPut("editStudentData/{studId}")]
