@@ -1,10 +1,7 @@
 ﻿using demoAPI.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-
-using demoAPI.Models;
-using Microsoft.AspNetCore.Mvc;
-
 namespace demoAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -32,5 +29,23 @@ namespace demoAPI.Controllers
             return obj;
         }
 
+        [HttpPut("editStudentData/{studId}")]
+        public IActionResult EditStudentData(int studId, StudentMasterModel obj)
+        {
+            var studentData = _dbContext.students
+                .SingleOrDefault(x => x.studid == studId);
+
+            if (studentData == null)
+            {
+                return NotFound();
+            }
+
+            studentData.studname = obj.studname;
+            studentData.age = obj.age;
+
+            _dbContext.SaveChanges();
+
+            return Ok(studentData);
+        }
     }
 }
