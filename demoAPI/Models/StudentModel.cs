@@ -12,6 +12,6 @@
 
     public enum Gender
     {
-        Male=2,Female=3,Others=5
+        Male,Female,Others
     }
 }
