@@ -91,6 +91,21 @@ namespace demoAPI.Controllers
             return Ok("District Added Successfully");
         }
 
+        [HttpGet ("GetAllDistrictWithStates")]
+        public async Task<IActionResult> GetAllDistrictWithStates()
+        {
+            var list = await (from district in _dbContext.districts
+                              join state in _dbContext.states on district.stateid equals state.stateid
+                              select new
+                              {
+                                  districtId=district.districtid,
+                                  districtName=district.districtname,
+                                  stateName=state.statename
+
+                              }).ToListAsync();
+            return Ok(list);
+        }
+
 
     }
 }
