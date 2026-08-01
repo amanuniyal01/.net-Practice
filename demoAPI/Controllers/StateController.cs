@@ -1,4 +1,5 @@
-﻿using demoAPI.Models;
+﻿using demoAPI.Interfaces;
+using demoAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,18 +10,17 @@ namespace demoAPI.Controllers
     [ApiController]
     public class StateController : ControllerBase
     {
-        private readonly StudentDbContext _dbContext;
-        public StateController(StudentDbContext dbContext)
+        private readonly IStateService _stateService;
+        public StateController(IStateService stateService)
 
         {
-            _dbContext = dbContext;
+            _stateService = stateService;
         }
 
         [HttpGet("GetAllStates")]
         public async Task<IActionResult> GetAllStates()
         {
-            var stateData = await _dbContext.states.ToListAsync();
-
+            var stateData = await _stateService.GetAllStatesAsync();
             if (!stateData.Any())
             {
                 return NoContent();
@@ -29,18 +29,16 @@ namespace demoAPI.Controllers
             return Ok(stateData);
         }
 
-        [HttpPost ("AddStateData")]
-        public async Task<IActionResult> AddStateData( StateModel obj)
+        [HttpPost("AddStateData")]
+        public async Task<IActionResult> AddStateData(StateModel obj)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
-            var stateDataAdded = await _dbContext.states.AddAsync(obj);
-            await _dbContext.SaveChangesAsync();
-            return Ok("State Added Successfully");
 
+            await _stateService.AddNewState(obj);
+            return Ok("State Added Successfully");
         }
+
         [HttpGet("GetAllDistricts")]
         public async Task<IActionResult> GetAllDistrict()
         {
