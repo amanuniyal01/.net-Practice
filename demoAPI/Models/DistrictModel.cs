@@ -13,7 +13,7 @@ namespace demoAPI.Models
             public int stateid { get; set; }
 
             [Required]
-            public string distictname { get; set; } = string.Empty;
+            public string districtname { get; set; } = string.Empty;
         
     }
 }

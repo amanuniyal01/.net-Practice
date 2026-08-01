@@ -16,7 +16,7 @@ namespace demoAPI.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet("getAllStates")]
+        [HttpGet("GetAllStates")]
         public async Task<IActionResult> GetAllStates()
         {
             var stateData = await _dbContext.states.ToListAsync();
@@ -29,7 +29,7 @@ namespace demoAPI.Controllers
             return Ok(stateData);
         }
 
-        [HttpPost ("addStateData")]
+        [HttpPost ("AddStateData")]
         public async Task<IActionResult> AddStateData( StateModel obj)
         {
             if (!ModelState.IsValid)
@@ -38,9 +38,59 @@ namespace demoAPI.Controllers
             }
             var stateDataAdded = await _dbContext.states.AddAsync(obj);
             await _dbContext.SaveChangesAsync();
-            return Created("State added Successfully", obj);
+            return Ok("State Added Successfully");
 
         }
+        [HttpGet("GetAllDistricts")]
+        public async Task<IActionResult> GetAllDistrict()
+        {
+            var districtData = await _dbContext.districts.ToListAsync();
+
+            if (!districtData.Any())
+            {
+                return NoContent();
+            }
+
+            return Ok(districtData);
+        }
+        [HttpPost("AddDistrict")]
+        public async Task<IActionResult> AddDistrict(DistrictModel obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // 🔹 Normalize input
+            var districtName = obj.districtname.ToLower().Trim();
+
+            // 🔹 Check duplicate in SAME state
+            var districtExists = await _dbContext.districts
+                .AnyAsync(m =>
+                    m.stateid == obj.stateid &&
+                    m.districtname.ToLower().Trim() == districtName
+                );
+            var sateExists = await _dbContext.states.AnyAsync(
+
+                m => m.stateid == obj.stateid);
+
+            if (!sateExists)
+            {
+                return BadRequest($"There is no state presnet for stateId : {obj.stateid}");
+            }
+
+            if (districtExists)
+            {
+                return BadRequest("District already exists in this state");
+            }
+
+            // 🔹 Insert
+            await _dbContext.districts.AddAsync(obj);
+            await _dbContext.SaveChangesAsync();
+
+            return Ok("District Added Successfully");
+        }
+
 
     }
 }
