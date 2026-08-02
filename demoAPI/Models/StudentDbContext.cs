@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using demoAPI.Models.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace demoAPI.Models
 {
@@ -8,8 +9,8 @@ namespace demoAPI.Models
         {
 
         }
-        public DbSet<StudentMasterModel> students { get; set; }
-        public DbSet<StateModel> states { get; set; }
-        public DbSet<DistrictModel> districts { get; set; }
+        //public DbSet<StudentMasterModel> students { get; set; }
+        public DbSet<StateEntity> states { get; set; }
+        public DbSet<DistrictEntity> districts { get; set; }
     }
 }

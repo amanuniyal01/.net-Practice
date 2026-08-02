@@ -1,11 +1,11 @@
 ﻿using demoAPI.Models;
-
+using demoAPI.Models.Dto;
 namespace demoAPI.Interfaces
 {
     public interface IDistrictService
     {
-        Task<List<DistrictModel>> GetAllDistricts();
-        Task<(bool Success, string Message)> AddNewDistrict(DistrictModel district);
-        Task<List<object>> GetAllDistrictsWithStates();
+        Task<List<DistrictResponseDto>> GetAllDistricts();
+        Task<(bool Success, string Message)> AddNewDistrict(DistrictRequestDto district);
+        Task<List<DistrictWithState>> GetAllDistrictsWithStates();
     }
 }

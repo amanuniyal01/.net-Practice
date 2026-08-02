@@ -1,5 +1,6 @@
 ﻿using demoAPI.Interfaces;
 using demoAPI.Models;
+using demoAPI.Models.Dto;
 using demoAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace demoAPI.Controllers
         }
 
         [HttpPost("AddStateData")]
-        public async Task<IActionResult> AddStateData(StateModel obj)
+        public async Task<IActionResult> AddStateData(StateDto obj)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,7 +58,7 @@ namespace demoAPI.Controllers
             return Ok(districtData);
         }
         [HttpPost("AddDistrict")]
-        public async Task<IActionResult> AddDistrict(DistrictModel obj)
+        public async Task<IActionResult> AddDistrict(DistrictRequestDto obj)
         {
             if (!ModelState.IsValid)
             {

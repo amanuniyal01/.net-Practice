@@ -1,5 +1,7 @@
 ﻿using demoAPI.Interfaces;
 using demoAPI.Models;
+using demoAPI.Models.Dto;
+using demoAPI.Models.Entity;
 
 namespace demoAPI.Services
 {
@@ -9,12 +11,12 @@ namespace demoAPI.Services
         public StateService(IStateRepo stateRepository){
             _stateRepository = stateRepository;
         }
-        public async Task<List<StateModel>> GetAllStatesAsync()
+        public async Task<List<StateEntity>> GetAllStatesAsync()
         {
             return await _stateRepository.GetAllStatesAsync();
         }
         
-        public async Task<(bool Success, string Message)> AddNewState(StateModel obj)
+        public async Task<(bool Success, string Message)> AddNewState(StateDto obj)
 
         {
             if (await _stateRepository.StateNameExistsAsync(obj.statename))

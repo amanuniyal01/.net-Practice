@@ -1,5 +1,7 @@
 ﻿using demoAPI.Interfaces;
 using demoAPI.Models;
+using demoAPI.Models.Dto;
+using demoAPI.Models.Entity;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +17,11 @@ namespace demoAPI.Repo
             _context = context;
         }
 
-        public async Task<List<StateModel>> GetAllStatesAsync()
+        public async Task<List<StateEntity>> GetAllStatesAsync()
         {
             return await _context.states.ToListAsync();
         }
-        public async Task<StateModel> AddNewState(StateModel obj)
+        public async Task<StateDto> AddNewState(StateEntity obj)
 
         {
             _context.states.Add(obj);
