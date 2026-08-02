@@ -17,28 +17,28 @@ namespace demoAPI.Repo
 
         public async Task<List<DistrictEntity>> GetAllDistricts()
         {
-            var districtData = await _context.districts.ToListAsync();
+            var districtData = await _context.district.ToListAsync();
             return districtData;
         }
 
         public async Task<DistrictEntity> AddNewDistrict(DistrictEntity district)
         {
-            await _context.districts.AddAsync(district);
+            await _context.district.AddAsync(district);
             await _context.SaveChangesAsync();
             return district;
         }
 
         public async Task<bool> DistrictExistInState(int stateId, string districtName)
         {
-            return await _context.districts.AnyAsync(m =>
+            return await _context.district.AnyAsync(m =>
             m.stateid == stateId &&
             m.districtname.ToLower().Trim() == districtName);
         }
          
         public async Task<List<DistrictWithState>> GetAllDistrictsWithStates()
         {
-            var list = await (from district in _context.districts
-                              join state in _context.states on district.stateid equals state.stateid
+            var list = await (from district in _context.district
+                              join state in _context.state on district.stateid equals state.stateid
                               select new DistrictWithState
                               {
                                   DistrictId = district.districtid,

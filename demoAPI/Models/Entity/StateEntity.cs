@@ -6,8 +6,6 @@ namespace demoAPI.Models.Entity
     public class StateEntity
     {
 
-
-
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int stateid { get; set; }
         [Required]

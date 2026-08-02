@@ -19,23 +19,23 @@ namespace demoAPI.Repo
 
         public async Task<List<StateEntity>> GetAllStatesAsync()
         {
-            return await _context.states.ToListAsync();
+            return await _context.state.ToListAsync();
         }
         public async Task<StateEntity> AddNewState(StateEntity obj)
 
         {
-            _context.states.Add(obj);
+            _context.state.Add(obj);
             await _context.SaveChangesAsync();
             return obj;
         }
         public async Task<bool> StateExistsAsync(int stateId )
         {
-            return await _context.states.AnyAsync(m => m.stateid == stateId );
+            return await _context.state.AnyAsync(m => m.stateid == stateId );
         }
        
            public async Task<bool> StateNameExistsAsync(string stateName)
         {
-            return await _context.states.AnyAsync(m =>
+            return await _context.state.AnyAsync(m =>
                 m.statename.ToLower().Trim() == stateName.ToLower().Trim());
         }
     }

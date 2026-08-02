@@ -10,7 +10,7 @@ namespace demoAPI.Models
 
         }
         //public DbSet<StudentMasterModel> students { get; set; }
-        public DbSet<StateEntity> states { get; set; }
-        public DbSet<DistrictEntity> districts { get; set; }
+        public DbSet<StateEntity> state { get; set; }
+        public DbSet<DistrictEntity> district { get; set; }
     }
 }
