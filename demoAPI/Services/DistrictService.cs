@@ -27,6 +27,7 @@ namespace demoAPI.Services
 
         public async Task<(bool Success, string Message)> AddNewDistrict(DistrictRequestDto dto)
         {
+
             var districtName = dto.districtname.ToLower().Trim();
             var stateExists = await _stateRepository.StateExistsAsync(dto.stateid);
             if (!stateExists)

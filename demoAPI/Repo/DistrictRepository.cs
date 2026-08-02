@@ -17,12 +17,14 @@ namespace demoAPI.Repo
 
         public async Task<List<DistrictEntity>> GetAllDistricts()
         {
+
             var districtData = await _context.district.ToListAsync();
             return districtData;
         }
 
         public async Task<DistrictEntity> AddNewDistrict(DistrictEntity district)
         {
+
             await _context.district.AddAsync(district);
             await _context.SaveChangesAsync();
             return district;

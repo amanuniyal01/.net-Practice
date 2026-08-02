@@ -57,6 +57,7 @@ namespace demoAPI.Controllers
 
             return Ok(districtData);
         }
+     
         [HttpPost("AddDistrict")]
         public async Task<IActionResult> AddDistrict(DistrictRequestDto obj)
         {
@@ -64,8 +65,13 @@ namespace demoAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
-            return Ok("District Added Successfully");
+
+            var (success, message) = await _districtService.AddNewDistrict(obj); 
+
+            if (!success)
+                return BadRequest(message);
+
+            return Ok(message);
         }
 
         [HttpGet ("GetAllDistrictWithStates")]
