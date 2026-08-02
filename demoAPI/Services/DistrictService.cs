@@ -25,22 +25,24 @@ namespace demoAPI.Services
             return _mapper.Map<List<DistrictResponseDto>>(entities);
         }
 
-        public async Task<(bool Success, string Message)> AddNewDistrict(DistrictRequestDto district)
+        public async Task<(bool Success, string Message)> AddNewDistrict(DistrictRequestDto dto)
         {
-            var districtName = district.districtname.ToLower().Trim();
-            var stateExists = await _stateRepository.StateExistsAsync(district.stateid);
+            var districtName = dto.districtname.ToLower().Trim();
+            var stateExists = await _stateRepository.StateExistsAsync(dto.stateid);
             if (!stateExists)
             {
-                return (false, $"There is no state present for stateId: {district.stateid}");
+                return (false, $"There is no state present for stateId: {dto.stateid}");
             }
 
-            var districtExists = await _districtRepository.DistrictExistInState(district.stateid, districtName);
+            var districtExists = await _districtRepository.DistrictExistInState(dto.stateid, districtName);
             if (districtExists)
             {
                 return (false, "District already exists in this state");
             }
 
-            await _districtRepository.AddNewDistrict(district);
+            var entity = _mapper.Map<DistrictEntity>(dto);
+            await _districtRepository.AddNewDistrict(entity);
+          
             return (true, "District Added Successfully");
         }
         public async Task<List<DistrictWithState>> GetAllDistrictsWithStates()
