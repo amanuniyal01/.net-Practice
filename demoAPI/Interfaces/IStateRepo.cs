@@ -6,6 +6,7 @@ namespace demoAPI.Interfaces
     {
         Task<List<StateModel>> GetAllStatesAsync();
         Task<StateModel> AddNewState(StateModel obj);
-        Task<bool> StateExistsAsync(int stateId);
+        Task<bool> StateExistsAsync(int stateId );
+        Task<bool> StateNameExistsAsync(string statename);
     }
 }

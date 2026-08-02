@@ -6,6 +6,6 @@ namespace demoAPI.Interfaces
     {
         Task<List<DistrictModel>> GetAllDistricts();
         Task<(bool Success, string Message)> AddNewDistrict(DistrictModel district);
-
+        Task<List<object>> GetAllDistrictsWithStates();
     }
 }

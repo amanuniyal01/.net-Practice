@@ -1,4 +1,7 @@
+using demoAPI.Interfaces;
 using demoAPI.Models;
+using demoAPI.Repo;
+using demoAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using System.Text.Json.Serialization;
@@ -17,6 +20,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<StudentDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddScoped<IStateRepo, StateRepo>();
+builder.Services.AddScoped<IDistrictRepo, DistrictRepository>();
+builder.Services.AddScoped<IStateService, StateService>();
+builder.Services.AddScoped<IDistrictService, DistrictService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

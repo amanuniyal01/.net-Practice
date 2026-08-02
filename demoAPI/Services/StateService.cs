@@ -14,9 +14,15 @@ namespace demoAPI.Services
             return await _stateRepository.GetAllStatesAsync();
         }
         
-        public async Task<StateModel> AddNewState(StateModel obj)
+        public async Task<(bool Success, string Message)> AddNewState(StateModel obj)
+
         {
-            return await _stateRepository.AddNewState(obj);
+            if (await _stateRepository.StateNameExistsAsync(obj.statename))
+            {
+                return (false, "State Already Exist!!");
+            }
+            await _stateRepository.AddNewState(obj);
+            return (true , "State Added Successfully!!");
         }
     }
 }
