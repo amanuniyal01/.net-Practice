@@ -2,7 +2,7 @@
 
 namespace demoAPI.Models.Dto
 {
-    public class StateDto
+    public class StateRequestDto
     {
         [Required]
         public string statename { get; set; } = String.Empty;

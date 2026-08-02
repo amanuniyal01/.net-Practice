@@ -7,7 +7,7 @@ namespace demoAPI.Interfaces
     public interface IStateRepo
     {
         Task<List<StateEntity>> GetAllStatesAsync();
-        Task<StateDto> AddNewState(StateEntity obj);
+        Task<StateEntity> AddNewState(StateEntity obj);
         Task<bool> StateExistsAsync(int stateId );
         Task<bool> StateNameExistsAsync(string statename);
     }

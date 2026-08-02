@@ -6,8 +6,8 @@ namespace demoAPI.Interfaces
 {
     public interface IStateService
     {
-        Task<List<StateEntity>> GetAllStatesAsync();
-         Task<(bool Success, string Message)> AddNewState( StateDto obj);
+        Task<List<StateResponseDto>> GetAllStatesAsync();
+         Task<(bool Success, string Message)> AddNewState( StateRequestDto dto);
  
     }
 }

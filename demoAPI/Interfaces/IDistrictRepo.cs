@@ -8,7 +8,7 @@ namespace demoAPI.Interfaces
     {
 
        Task<List<DistrictEntity>> GetAllDistricts();
-        Task<DistrictRequestDto> AddNewDistrict(DistrictEntity district);
+        Task<DistrictEntity> AddNewDistrict(DistrictEntity district);
         Task<bool> DistrictExistInState(int stateId , string districtName);
 
         Task<List<DistrictWithState>> GetAllDistrictsWithStates();

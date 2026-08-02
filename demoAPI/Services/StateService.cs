@@ -1,4 +1,5 @@
-﻿using demoAPI.Interfaces;
+﻿using AutoMapper;
+using demoAPI.Interfaces;
 using demoAPI.Models;
 using demoAPI.Models.Dto;
 using demoAPI.Models.Entity;
@@ -8,22 +9,27 @@ namespace demoAPI.Services
     public class StateService:IStateService
     {
         private readonly IStateRepo _stateRepository;
-        public StateService(IStateRepo stateRepository){
-            _stateRepository = stateRepository;
-        }
-        public async Task<List<StateEntity>> GetAllStatesAsync()
+        private readonly IMapper _mapper;
+        public StateService(IStateRepo stateRepository, IMapper mapper)
         {
-            return await _stateRepository.GetAllStatesAsync();
+            _stateRepository = stateRepository;
+            _mapper = mapper;
+        }
+        public async Task<List<StateResponseDto>> GetAllStatesAsync()
+        {
+            var entity = await _stateRepository.GetAllStatesAsync();
+            return _mapper.Map<List<StateResponseDto>>(entity);
         }
         
-        public async Task<(bool Success, string Message)> AddNewState(StateDto obj)
+        public async Task<(bool Success, string Message)> AddNewState(StateRequestDto dto)
 
         {
-            if (await _stateRepository.StateNameExistsAsync(obj.statename))
+            if (await _stateRepository.StateNameExistsAsync(dto.statename))
             {
                 return (false, "State Already Exist!!");
             }
-            await _stateRepository.AddNewState(obj);
+            var entity = _mapper.Map<StateEntity>(dto);
+            await _stateRepository.AddNewState(entity);
             return (true , "State Added Successfully!!");
         }
     }

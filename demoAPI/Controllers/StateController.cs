@@ -33,7 +33,7 @@ namespace demoAPI.Controllers
         }
 
         [HttpPost("AddStateData")]
-        public async Task<IActionResult> AddStateData(StateDto obj)
+        public async Task<IActionResult> AddStateData(StateRequestDto obj)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

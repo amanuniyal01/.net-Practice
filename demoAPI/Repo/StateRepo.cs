@@ -21,7 +21,7 @@ namespace demoAPI.Repo
         {
             return await _context.states.ToListAsync();
         }
-        public async Task<StateDto> AddNewState(StateEntity obj)
+        public async Task<StateEntity> AddNewState(StateEntity obj)
 
         {
             _context.states.Add(obj);

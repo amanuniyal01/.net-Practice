@@ -21,7 +21,7 @@ namespace demoAPI.Repo
             return districtData;
         }
 
-        public async Task<DistrictRequestDto> AddNewDistrict(DistrictEntity district)
+        public async Task<DistrictEntity> AddNewDistrict(DistrictEntity district)
         {
             await _context.districts.AddAsync(district);
             await _context.SaveChangesAsync();
@@ -41,10 +41,10 @@ namespace demoAPI.Repo
                               join state in _context.states on district.stateid equals state.stateid
                               select new DistrictWithState
                               {
-                                  districtId = district.districtid,
-                                  districtName = district.districtname,
-                                  stateName = state.statename
-                              }).ToListAsync<object>();
+                                  DistrictId = district.districtid,
+                                  DistrictName = district.districtname,
+                                  StateName = state.statename
+                              }).ToListAsync();
 
             return list;
         }
