@@ -12,5 +12,6 @@ namespace demoAPI.Interfaces
         Task<bool> DistrictExistInState(int stateId , string districtName);
 
         Task<List<DistrictWithState>> GetAllDistrictsWithStates();
+        Task<DistrictEntity?> GetDistrictById(int id);
     }
 }

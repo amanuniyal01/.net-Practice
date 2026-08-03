@@ -81,6 +81,17 @@ namespace demoAPI.Controllers
             return Ok(list);
         }
 
+        [HttpGet ("GetDistrictById/{id}")]
+        public async Task<IActionResult> GetDistrictById(int id)
+        {
+            var (district,message)= await _districtService.GetDistrictById(id);
+            if (district == null)
+            {
+                return NotFound($"District with id {id} not found");
+            }
+                return Ok(district);
+        }
+
 
     }
 }

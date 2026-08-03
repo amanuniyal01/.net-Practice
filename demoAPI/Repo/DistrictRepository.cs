@@ -50,5 +50,10 @@ namespace demoAPI.Repo
 
             return list;
         }
+        public async Task<DistrictEntity> GetDistrictById(int id)
+        {
+            var districtbyId = await _context.district.FirstOrDefaultAsync(d => d.districtid == id);
+            return districtbyId;
+        }
     }
 }

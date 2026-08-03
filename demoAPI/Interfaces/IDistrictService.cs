@@ -7,5 +7,7 @@ namespace demoAPI.Interfaces
         Task<List<DistrictResponseDto>> GetAllDistricts();
         Task<(bool Success, string Message)> AddNewDistrict(DistrictRequestDto district);
         Task<List<DistrictWithState>> GetAllDistrictsWithStates();
+        Task<(DistrictResponseDto? District,string? message)>GetDistrictById(int id);
+
     }
 }

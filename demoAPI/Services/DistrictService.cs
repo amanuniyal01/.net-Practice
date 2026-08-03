@@ -51,7 +51,18 @@ namespace demoAPI.Services
             return await _districtRepository.GetAllDistrictsWithStates();
         }
 
+        public async Task<(DistrictResponseDto? District,string? message)> GetDistrictById(int id)
+        {
+            var entity = await _districtRepository.GetDistrictById(id);
 
+            if (entity == null)
+                return (null , "No district found for this id!!");   
+
+          var dto=_mapper.Map<DistrictResponseDto>(entity);
+            return (dto, null);
+        }
     }
+
+    
     }
 
