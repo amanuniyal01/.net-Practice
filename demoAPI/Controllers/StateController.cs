@@ -46,9 +46,9 @@ namespace demoAPI.Controllers
         }
 
         [HttpGet("GetAllDistricts")]
-        public async Task<IActionResult> GetAllDistrict()
+        public async Task<IActionResult> GetAllDistrict( [FromQuery]string? search)
         {
-            var districtData = await _districtService.GetAllDistricts();
+            var districtData = await _districtService.GetAllDistricts(search);
 
             if (!districtData.Any())
             {

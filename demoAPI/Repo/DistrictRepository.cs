@@ -15,11 +15,14 @@ namespace demoAPI.Repo
             _context = context;
         }
 
-        public async Task<List<DistrictEntity>> GetAllDistricts()
+        public async Task<List<DistrictEntity>> GetAllDistricts(string? search)
         {
-
-            var districtData = await _context.district.ToListAsync();
-            return districtData;
+            var query =  _context.district.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(d => d.districtname.ToLower().Contains(search.ToLower()));
+            }
+            return await  query.ToListAsync();
         }
 
         public async Task<DistrictEntity> AddNewDistrict(DistrictEntity district)
@@ -37,7 +40,7 @@ namespace demoAPI.Repo
             m.districtname.ToLower().Trim() == districtName);
         }
          
-        public async Task<List<DistrictWithState>> GetAllDistrictsWithStates()
+        public async Task<List<DistrictWithState>> GetAllDistrictsWithStates( )
         {
             var list = await (from district in _context.district
                               join state in _context.state on district.stateid equals state.stateid

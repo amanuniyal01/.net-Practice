@@ -7,7 +7,7 @@ namespace demoAPI.Interfaces
     public interface IDistrictRepo
     {
 
-       Task<List<DistrictEntity>> GetAllDistricts();
+       Task<List<DistrictEntity>> GetAllDistricts(string? search);
         Task<DistrictEntity> AddNewDistrict(DistrictEntity district);
         Task<bool> DistrictExistInState(int stateId , string districtName);
 

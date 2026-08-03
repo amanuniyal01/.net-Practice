@@ -19,9 +19,9 @@ namespace demoAPI.Services
             _mapper = mapper;
         }
 
-        public async Task<List<DistrictResponseDto>> GetAllDistricts()
+        public async Task<List<DistrictResponseDto>> GetAllDistricts(string search)
         {
-            var entities = await _districtRepository.GetAllDistricts();
+            var entities = await _districtRepository.GetAllDistricts(  search);
             return _mapper.Map<List<DistrictResponseDto>>(entities);
         }
 
